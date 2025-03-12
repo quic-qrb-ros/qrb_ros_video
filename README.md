@@ -58,6 +58,8 @@ Currently, we only support build with QCLINUX SDK.
 
 4. Build this project
 
+   * For ROS2 Humble
+
    ```bash
    export AMENT_PREFIX_PATH="${OECORE_TARGET_SYSROOT}/usr;${OECORE_NATIVE_SYSROOT}/usr"
    export PYTHONPATH=${PYTHONPATH}:${OECORE_TARGET_SYSROOT}/usr/lib/python3.10/site-packages
@@ -68,6 +70,22 @@ Currently, we only support build with QCLINUX SDK.
      -DPYTHON_SOABI=cpython-310-aarch64-linux-gnu -DCMAKE_STAGING_PREFIX=$(pwd)/install \
      -DCMAKE_PREFIX_PATH=$(pwd)/install/share \
      -DBUILD_TESTING=OFF
+   ```
+
+   * For ROS2 Jazzy
+
+   ```bash
+   export AMENT_PREFIX_PATH="${OECORE_TARGET_SYSROOT}/usr;${OECORE_NATIVE_SYSROOT}/usr"
+   export PYTHONPATH=${PYTHONPATH}:${OECORE_NATIVE_SYSROOT}/usr/lib/python3.12/site-packages
+
+   colcon build --merge-install --cmake-args \
+      -DPython3_ROOT_DIR=${OECORE_NATIVE_SYSROOT}/usr \
+      -DPython3_NumPy_INCLUDE_DIR=${OECORE_NATIVE_SYSROOT}/usr/lib/python3.12/site-packages/numpy/core/include \
+      -DSYSROOT_LIBDIR=${OECORE_TARGET_SYSROOT}/usr/lib \
+      -DSYSROOT_INCDIR=${OECORE_TARGET_SYSROOT}/usr/include \
+      -DPYTHON_SOABI=cpython-312-aarch64-linux-gnu -DCMAKE_STAGING_PREFIX=$(pwd)/install \
+      -DCMAKE_PREFIX_PATH=$(pwd)/install/share \
+      -DBUILD_TESTING=OFF
    ```
 
 5. Push to the device & Install
